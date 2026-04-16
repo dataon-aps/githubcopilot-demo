@@ -1,5 +1,55 @@
-# SPECKIT - AI Agent for Software Specification and Implementation
 
+# Setting Up Your Development Environment
+
+## Creating a Python Virtual Environment
+
+To get started with this project, create a Python virtual environment and install the required dependencies:
+
+### On Windows (PowerShell):
+```powershell
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+.\venv\Scripts\Activate.ps1
+
+# Install requirements
+pip install -r requirements.lock
+```
+
+### On macOS/Linux:
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install requirements
+pip install -r requirements.lock
+```
+
+## Verifying the Installation
+
+After activating the virtual environment and installing requirements, verify the setup:
+
+```bash
+# Check Python version
+python --version
+
+# List installed packages
+pip list
+```
+
+## Deactivating the Virtual Environment
+
+When you're done working on the project, deactivate the virtual environment:
+
+```bash
+deactivate
+```
+
+# SPECKIT - AI Agent for Software Specification and Implementation
 ╭─────────────────────────────────────────────── Agent Folder Security ────────────────────────────────────────────────╮
 │                                                                                                                      │
 │  Some agents may store credentials, auth tokens, or other identifying and private artifacts in the agent folder      │
