@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "train-timetable": {
+      "type": "stdio",
+      "command": ".venv/Scripts/python",
+      "args": ["Code/McpServer/server.py"],
+      "description": "Query train departure data from the timetable API"
+    }
+  }
+}
