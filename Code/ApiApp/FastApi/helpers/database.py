@@ -26,22 +26,21 @@ def init_db():
                     DepartureTime TEXT NOT NULL,
                     ArrivalTime TEXT NOT NULL,
                     Platform INTEGER,
-                    Status TEXT NOT NULL DEFAULT 'On time',
-                    DelayMinutes INTEGER
+                    Status TEXT NOT NULL DEFAULT 'On time'
                 )
             """)
 
             cursor.execute("SELECT COUNT(*) FROM departures")
             if cursor.fetchone()[0] == 0:
                 sample_departures = [
-                    ("IC 342", "Copenhagen", "Aarhus", "2026-04-14T08:15:00", "2026-04-14T11:20:00", 3, "On time", None),
-                    ("RE 1720", "Odense", "Copenhagen", "2026-04-14T09:00:00", "2026-04-14T10:32:00", 7, "Delayed", 12),
-                    ("IC 855", "Aarhus", "Aalborg", "2026-04-14T10:45:00", "2026-04-14T12:10:00", 1, "On time", None),
-                    ("RE 4410", "Copenhagen", "Odense", "2026-04-14T12:30:00", "2026-04-14T14:05:00", 5, "Cancelled", None),
-                    ("IC 190", "Aalborg", "Copenhagen", "2026-04-14T14:00:00", "2026-04-14T18:30:00", 2, "Delayed", 5),
+                    ("IC 342", "Copenhagen", "Aarhus", "2026-04-14T08:15:00", "2026-04-14T11:20:00", 3, "On time"),
+                    ("RE 1720", "Odense", "Copenhagen", "2026-04-14T09:00:00", "2026-04-14T10:32:00", 7, "Delayed"),
+                    ("IC 855", "Aarhus", "Aalborg", "2026-04-14T10:45:00", "2026-04-14T12:10:00", 1, "On time"),
+                    ("RE 4410", "Copenhagen", "Odense", "2026-04-14T12:30:00", "2026-04-14T14:05:00", 5, "Cancelled"),
+                    ("IC 190", "Aalborg", "Copenhagen", "2026-04-14T14:00:00", "2026-04-14T18:30:00", 2, "Delayed"),
                 ]
                 cursor.executemany(
-                    "INSERT INTO departures (TrainNumber, Origin, Destination, DepartureTime, ArrivalTime, Platform, Status, DelayMinutes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO departures (TrainNumber, Origin, Destination, DepartureTime, ArrivalTime, Platform, Status) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     sample_departures,
                 )
                 logging.info("Seeded %d sample departures.", len(sample_departures))

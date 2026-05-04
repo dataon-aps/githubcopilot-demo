@@ -1,6 +1,5 @@
 import pytest
 import sqlite3
-from datetime import datetime
 from unittest.mock import Mock, MagicMock
 from fastapi.testclient import TestClient
 
@@ -23,14 +22,14 @@ def mock_db_with_sample_data():
     cursor = MagicMock()
     
     sample_data = [
-        (1, "IC 342", "Copenhagen", "Aarhus", "2026-04-14T08:15:00", "2026-04-14T11:20:00", 3, "On time", None),
-        (2, "RE 1720", "Odense", "Copenhagen", "2026-04-14T09:00:00", "2026-04-14T10:32:00", 7, "Delayed", 12),
-        (3, "IC 855", "Aarhus", "Aalborg", "2026-04-14T10:45:00", "2026-04-14T12:10:00", 1, "On time", None),
+        (1, "IC 342", "Copenhagen", "Aarhus", "2026-04-14T08:15:00", "2026-04-14T11:20:00", 3, "On time"),
+        (2, "RE 1720", "Odense", "Copenhagen", "2026-04-14T09:00:00", "2026-04-14T10:32:00", 7, "Delayed"),
+        (3, "IC 855", "Aarhus", "Aalborg", "2026-04-14T10:45:00", "2026-04-14T12:10:00", 1, "On time"),
     ]
     
     cursor.description = [
         ('Id',), ('TrainNumber',), ('Origin',), ('Destination',),
-        ('DepartureTime',), ('ArrivalTime',), ('Platform',), ('Status',), ('DelayMinutes',)
+        ('DepartureTime',), ('ArrivalTime',), ('Platform',), ('Status',)
     ]
     cursor.fetchall.return_value = sample_data
     db.cursor.return_value = cursor
@@ -62,7 +61,7 @@ def client_with_empty_db():
     
     cursor.description = [
         ('Id',), ('TrainNumber',), ('Origin',), ('Destination',),
-        ('DepartureTime',), ('ArrivalTime',), ('Platform',), ('Status',), ('DelayMinutes',)
+        ('DepartureTime',), ('ArrivalTime',), ('Platform',), ('Status',)
     ]
     cursor.fetchall.return_value = []
     db.cursor.return_value = cursor

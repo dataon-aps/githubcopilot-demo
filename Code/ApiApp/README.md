@@ -41,8 +41,7 @@ The API starts at `http://localhost:8000`.
     "DepartureTime": "2026-04-14T08:15:00",
     "ArrivalTime": "2026-04-14T11:20:00",
     "Platform": 3,
-    "Status": "On time",
-    "DelayMinutes": null
+    "Status": "On time"
   }
 ]
 ```
@@ -65,4 +64,4 @@ FunctionApp/ApiApp/
 │       └── error_handler.py         ← @handle_exceptions decorator
 ```
 
-The SQLite database (`timetable.db`) is created automatically on first run with sample departure data.
+The SQLite database (`timetable.db`) is created automatically on first run with sample departure data. If you change the schema locally, delete `timetable.db` before starting the app so it can be recreated.

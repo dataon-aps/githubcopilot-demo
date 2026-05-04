@@ -15,13 +15,13 @@ Test suite for the `GET /api/departures` endpoint with 13 test cases covering:
 
 #### Response Validation Tests
 - `test_get_departures_response_model_validation`: Response conforms to Departure model schema
-- `test_get_departures_includes_optional_fields`: Optional fields (Platform, DelayMinutes) present
+- `test_get_departures_includes_optional_fields`: Optional fields such as Platform are present
 - `test_get_departures_consistent_field_types`: All departures have correct field types
 - `test_get_departures_datetime_format`: DateTime fields in ISO 8601 format
 
 #### Data-Specific Tests
-- `test_get_departures_delayed_train_data`: Delayed trains correctly include delay minutes
-- `test_get_departures_on_time_train_no_delay`: On-time trains have null delay minutes
+- `test_get_departures_delayed_train_data`: Delayed trains retain the expected status data
+- `test_get_departures_on_time_train_status`: On-time trains retain the expected status data
 
 #### Error Handling Tests
 - `test_get_departures_database_operational_error`: Returns 503 when database is unavailable

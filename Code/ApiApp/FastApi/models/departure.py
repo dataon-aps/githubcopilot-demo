@@ -17,4 +17,3 @@ class Departure(BaseModel):
     ArrivalTime: datetime
     Platform: Optional[int] = None
     Status: str
-    DelayMinutes: Optional[int] = None

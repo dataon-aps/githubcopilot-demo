@@ -1,10 +1,6 @@
-import pytest
 import sqlite3
-from datetime import datetime
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import Mock, MagicMock
 from fastapi import status
-
-from FastApi.models.departure import Departure
 
 
 class TestGetDepartures:
@@ -53,7 +49,7 @@ class TestGetDepartures:
             assert isinstance(departure["Status"], str)
 
     def test_get_departures_includes_optional_fields(self, client_with_mock_db):
-        """Test that optional fields (Platform, DelayMinutes) are included in response."""
+        """Test that optional fields such as Platform are included in response."""
         response = client_with_mock_db.get("/api/departures")
         data = response.json()
         
@@ -62,10 +58,6 @@ class TestGetDepartures:
         first = data[0]
         assert "Platform" in first
         assert first["Platform"] == 3
-        
-        second = data[1]
-        assert "DelayMinutes" in second
-        assert second["DelayMinutes"] == 12
 
     def test_get_departures_database_operational_error(self, client_with_db_error):
         """Test error handling when database is unavailable."""
@@ -157,7 +149,7 @@ class TestGetDepartures:
         assert "application/json" in response.headers.get("content-type", "")
 
     def test_get_departures_delayed_train_data(self, client_with_mock_db):
-        """Test that delayed train data is correctly returned."""
+        """Test that delayed train status data is correctly returned."""
         response = client_with_mock_db.get("/api/departures")
         data = response.json()
         
@@ -166,10 +158,10 @@ class TestGetDepartures:
         delayed_train = next((d for d in data if d["Status"] == "Delayed"), None)
         assert delayed_train is not None
         assert delayed_train["TrainNumber"] == "RE 1720"
-        assert delayed_train["DelayMinutes"] == 12
+        assert delayed_train["Platform"] == 7
 
-    def test_get_departures_on_time_train_no_delay(self, client_with_mock_db):
-        """Test that on-time trains have no delay minutes."""
+    def test_get_departures_on_time_train_status(self, client_with_mock_db):
+        """Test that on-time trains keep their status data."""
         response = client_with_mock_db.get("/api/departures")
         data = response.json()
         
@@ -177,7 +169,7 @@ class TestGetDepartures:
         
         on_time_train = next((d for d in data if d["Status"] == "On time"), None)
         assert on_time_train is not None
-        assert on_time_train["DelayMinutes"] is None
+        assert on_time_train["TrainNumber"] == "IC 342"
 
     def test_get_departures_datetime_format(self, client_with_mock_db):
         """Test that datetime fields are in ISO 8601 format."""
@@ -210,4 +202,3 @@ class TestGetDepartures:
             assert isinstance(departure["Destination"], str)
             assert isinstance(departure["Status"], str)
             assert departure["Platform"] is None or isinstance(departure["Platform"], int)
-            assert departure["DelayMinutes"] is None or isinstance(departure["DelayMinutes"], int)
